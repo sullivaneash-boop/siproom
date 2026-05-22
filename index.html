@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Sip Room — Atlanta mobile bartending and mixology classes. Cocktail nights worth remembering. Classes from $65/guest. We come to you.">
+  <title>The Sip Room | Atlanta Mobile Bartending &amp; Mixology</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F7F2E8;
+      --card: #FFFFFF;
+      --sage: #A3B18A;
+      --sage-deep: #6B7A5A;
+      --forest: #2E3A2C;
+      --ink: #1E1E1C;
+      --stone: #6F6E68;
+      --gold: #C2A14E;
+      --border: #E4DDCE;
+      --section-pad: clamp(4rem, 8vw, 7rem);
+      --radius-card: 12px;
+      --radius-btn: 7px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      font-family: "Jost", system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--cream);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    h1, h2, h3, .wordmark {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage-deep);
+      margin-bottom: 0.75rem;
+    }
+
+    .container {
+      width: min(1120px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .prose { max-width: 70ch; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.85rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: var(--radius-btn);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(194, 161, 78, 0.35);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--card);
+      border-color: rgba(255,255,255,0.6);
+    }
+    .btn-secondary:hover {
+      border-color: var(--card);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--sage-deep);
+      border-color: var(--sage-deep);
+    }
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(107, 122, 90, 0.2);
+    }
+    .link-inquire {
+      font-weight: 500;
+      color: var(--sage-deep);
+      text-decoration: none;
+      border-bottom: 1px solid var(--sage);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .link-inquire:hover { color: var(--ink); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn:hover { transform: none; }
+    }
+
+    /* ===== SITE NAV ===== */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0.85rem 0;
+      transition: background 0.25s ease, box-shadow 0.25s ease, padding 0.25s ease;
+    }
+    .site-nav.is-scrolled {
+      background: rgba(46, 58, 44, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(30, 30, 28, 0.15);
+      padding: 0.6rem 0;
+    }
+    .site-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .site-nav .wordmark {
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      color: var(--cream);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .site-nav .wordmark-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 0.38rem;
+      border-color: rgba(247, 242, 232, 0.7);
+      margin-right: 0.5rem;
+    }
+    .site-nav__links {
+      display: none;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .site-nav__links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(247, 242, 232, 0.88);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .site-nav__links a:hover { color: var(--cream); }
+    .site-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .site-nav__cta {
+      display: none;
+      padding: 0.65rem 1.15rem;
+      font-size: 0.88rem;
+    }
+    .nav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      background: transparent;
+      border: 1.5px solid rgba(247, 242, 232, 0.45);
+      border-radius: var(--radius-btn);
+      color: var(--cream);
+      cursor: pointer;
+    }
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .nav-toggle__bar {
+      display: block;
+      width: 1.15rem;
+      height: 2px;
+      background: currentColor;
+      position: relative;
+    }
+    .nav-toggle__bar::before,
+    .nav-toggle__bar::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+    }
+    .nav-toggle__bar::before { top: -6px; }
+    .nav-toggle__bar::after { top: 6px; }
+    .site-nav.is-open .nav-toggle__bar { background: transparent; }
+    .site-nav.is-open .nav-toggle__bar::before { top: 0; transform: rotate(45deg); }
+    .site-nav.is-open .nav-toggle__bar::after { top: 0; transform: rotate(-45deg); }
+    .site-nav__mobile {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--forest);
+      border-top: 1px solid rgba(247, 242, 232, 0.12);
+      padding: 1rem 1rem 1.25rem;
+      box-shadow: 0 12px 32px rgba(30, 30, 28, 0.2);
+    }
+    .site-nav.is-open .site-nav__mobile { display: block; }
+    .site-nav__mobile ul {
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+    }
+    .site-nav__mobile a {
+      display: block;
+      padding: 0.65rem 0;
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(247, 242, 232, 0.1);
+    }
+    .site-nav__mobile .btn { width: 100%; }
+    @media (min-width: 900px) {
+      .site-nav__links { display: flex; }
+      .site-nav__cta { display: inline-flex; }
+      .nav-toggle { display: none; }
+      .site-nav__mobile { display: none !important; }
+    }
+
+    /* ===== SECTION 1: HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      color: var(--cream);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    @media (min-width: 900px) {
+      .hero__grid {
+        grid-template-columns: minmax(320px, 0.92fr) minmax(360px, 1.08fr);
+      }
+    }
+    .hero__panel {
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      padding: 6.5rem 0 3rem;
+      order: 2;
+    }
+    @media (min-width: 900px) {
+      .hero__panel {
+        order: 0;
+        padding: 7rem 0 4rem;
+      }
+    }
+    .hero__panel .container {
+      width: min(520px, 100% - 2rem);
+      margin-inline: auto;
+    }
+    @media (min-width: 900px) {
+      .hero__panel .container {
+        margin-inline: auto 0;
+        margin-left: max(1rem, calc((100vw - 1120px) / 2 + 1rem));
+      }
+    }
+    .hero__eyebrow {
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+    .hero__content { max-width: none; }
+    .hero h1 {
+      font-size: clamp(2.35rem, 5.5vw, 3.75rem);
+      margin-bottom: 1.1rem;
+      color: var(--cream);
+    }
+    .hero__sub {
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: rgba(247, 242, 232, 0.88);
+      margin-bottom: 1.75rem;
+      max-width: 38ch;
+      line-height: 1.6;
+    }
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+    .hero__proof {
+      margin: 1.35rem 0 0;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: rgba(163, 177, 138, 0.95);
+    }
+    .hero-quickbook {
+      margin-top: 2rem;
+      padding: 1.1rem 1.15rem;
+      background: rgba(247, 242, 232, 0.06);
+      border: 1px solid rgba(247, 242, 232, 0.14);
+      border-radius: var(--radius-card);
+    }
+    .hero-quickbook__label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.55);
+      margin: 0 0 0.75rem;
+    }
+    .hero-quickbook__fields {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+    @media (min-width: 540px) {
+      .hero-quickbook__fields {
+        grid-template-columns: 1fr 5.5rem auto;
+        align-items: end;
+      }
+    }
+    .hero-quickbook label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(247, 242, 232, 0.7);
+      margin-bottom: 0.3rem;
+    }
+    .hero-quickbook select,
+    .hero-quickbook input {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--ink);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-btn);
+    }
+    .hero-quickbook select:focus-visible,
+    .hero-quickbook input:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    .hero-quickbook .btn {
+      width: 100%;
+      white-space: nowrap;
+      padding: 0.7rem 1.1rem;
+      font-size: 0.88rem;
+    }
+    @media (min-width: 540px) {
+      .hero-quickbook .btn { width: auto; }
+    }
+    .hero__media {
+      position: relative;
+      min-height: 42vh;
+      order: 1;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .hero__media {
+        order: 0;
+        min-height: auto;
+      }
+    }
+    .hero__media > img {
+      width: 100%;
+      height: 100%;
+      min-height: 42vh;
+      object-fit: cover;
+      object-position: center 28%;
+    }
+    @media (min-width: 900px) {
+      .hero__media > img { min-height: 100vh; }
+    }
+    .hero__inset {
+      display: none;
+      position: absolute;
+      bottom: 2.5rem;
+      left: -1.75rem;
+      width: min(38%, 220px);
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border: 4px solid var(--cream);
+      border-radius: 6px;
+      box-shadow: 0 16px 40px rgba(30, 30, 28, 0.35);
+    }
+    @media (min-width: 900px) {
+      .hero__inset { display: block; }
+    }
+    .wordmark {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .wordmark-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.25rem;
+      height: 3.25rem;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      font-size: 0.45rem;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      text-align: center;
+      margin-right: 0.75rem;
+      vertical-align: middle;
+    }
+    .hero .btn-secondary {
+      color: var(--cream);
+      border-color: rgba(247, 242, 232, 0.55);
+    }
+    .hero .btn-secondary:hover {
+      border-color: var(--cream);
+      background: rgba(247, 242, 232, 0.08);
+    }
+
+    /* ===== SECTION 2: PILLARS ===== */
+    .pillars {
+      padding: var(--section-pad) 0;
+    }
+    .pillars__intro {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .pillars__intro h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+    .pillars__intro p {
+      color: var(--stone);
+      margin: 0.75rem auto 0;
+      max-width: 50ch;
+    }
+    .pillars__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .pillar {
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+    .pillar__icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 1rem;
+      color: var(--sage);
+    }
+    .pillar h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+    .pillar p {
+      color: var(--stone);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* ===== SECTION 3: EXPERIENCES ===== */
+    .experiences {
+      padding: var(--section-pad) 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+    .section-header p {
+      color: var(--stone);
+      margin: 0.75rem auto 0;
+      max-width: 55ch;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .exp-card {
+      background: var(--cream);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .exp-card__img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .exp-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .exp-card:hover .exp-card__img img {
+      transform: scale(1.03);
+    }
+    .exp-card__body {
+      padding: 1.25rem 1.35rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .exp-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .exp-card p {
+      color: var(--stone);
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+      flex: 1;
+    }
+
+    /* ===== SECTION 4: HOW IT WORKS ===== */
+    .how-it-works {
+      padding: var(--section-pad) 0;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      position: relative;
+      margin-top: 3rem;
+    }
+    @media (min-width: 768px) {
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 1.75rem;
+        left: 15%;
+        right: 15%;
+        height: 0;
+        border-top: 2px dashed var(--sage);
+        z-index: 0;
+      }
+    }
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step__num {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+      border: 2px solid var(--sage);
+      border-radius: 50%;
+      font-family: "Playfair Display", serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--sage-deep);
+    }
+    .step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+    .step p {
+      color: var(--stone);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* ===== SECTION 5: GALLERY ===== */
+    .gallery {
+      padding: var(--section-pad) 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .gallery__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+    }
+    .gallery__item {
+      aspect-ratio: 1;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery__item--wide {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    @media (min-width: 640px) {
+      .gallery__item--wide { grid-column: span 1; aspect-ratio: 1; }
+    }
+
+    /* ===== SECTION 6: TESTIMONIALS ===== */
+    .testimonials {
+      padding: var(--section-pad) 0;
+    }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .test-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 1.75rem;
+    }
+    .test-card blockquote {
+      margin: 0 0 1rem;
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    .test-card cite {
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--stone);
+    }
+    .test-card .placeholder-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ===== SECTION 7A: PRICING PACKAGES ===== */
+    .pricing {
+      padding: var(--section-pad) 0;
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+    }
+    .pricing .eyebrow { color: var(--sage-deep); }
+    .pricing h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+    }
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .package-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .package-card--featured {
+      border-color: var(--gold);
+      box-shadow: 0 8px 32px rgba(194, 161, 78, 0.12);
+    }
+    .package-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 0.3rem 0.55rem;
+      border-radius: 4px;
+    }
+    .package-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.35rem;
+      padding-right: 5rem;
+    }
+    .package-card .package-price {
+      font-family: "Playfair Display", serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .package-card .package-price span {
+      font-family: "Jost", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--stone);
+    }
+    .package-card .package-note {
+      font-size: 0.85rem;
+      color: var(--stone);
+      margin-bottom: 1rem;
+    }
+    .package-includes {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      flex: 1;
+    }
+    .package-includes li {
+      font-size: 0.92rem;
+      color: var(--stone);
+      padding: 0.35rem 0 0.35rem 1.25rem;
+      position: relative;
+    }
+    .package-includes li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    /* ===== SECTION 7B: BOOKING ===== */
+    .booking {
+      padding: var(--section-pad) 0;
+      background: var(--forest);
+      color: var(--cream);
+    }
+    .booking .eyebrow { color: var(--gold); }
+    .booking h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .booking__sub {
+      color: rgba(247, 242, 232, 0.75);
+      margin-bottom: 1.5rem;
+      max-width: 50ch;
+    }
+    .booking-progress {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(247, 242, 232, 0.55);
+      margin-bottom: 1.75rem;
+    }
+    .booking-layout {
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 900px) {
+      .booking-layout {
+        grid-template-columns: 1fr 280px;
+        align-items: start;
+      }
+    }
+    .booking-form {
+      display: grid;
+      gap: 1.25rem;
+    }
+    .form-step { display: none; }
+    .form-step.active { display: grid; gap: 1.25rem; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-row--3 {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    @media (max-width: 640px) {
+      .form-row, .form-row--3 { grid-template-columns: 1fr; }
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: rgba(247, 242, 232, 0.9);
+    }
+    .form-group .helper {
+      font-size: 0.78rem;
+      color: rgba(247, 242, 232, 0.5);
+      margin-top: 0.35rem;
+    }
+    .form-group .error {
+      font-size: 0.78rem;
+      color: #f5a8a8;
+      margin-top: 0.35rem;
+      display: none;
+    }
+    .form-group.has-error .error { display: block; }
+    .form-group.has-error input,
+    .form-group.has-error select {
+      border-color: #f5a8a8;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid rgba(247, 242, 232, 0.25);
+      border-radius: var(--radius-btn);
+      background: rgba(255,255,255,0.08);
+      color: var(--cream);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(247, 242, 232, 0.45);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      border-color: transparent;
+    }
+    .form-group select option {
+      background: var(--forest);
+      color: var(--cream);
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(247, 242, 232, 0.85);
+      border-color: rgba(247, 242, 232, 0.35);
+    }
+    .btn-ghost:hover {
+      border-color: var(--cream);
+      transform: translateY(-2px);
+    }
+    .estimate-panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(194, 161, 78, 0.35);
+      border-radius: var(--radius-card);
+      padding: 1.25rem 1.35rem;
+    }
+    @media (min-width: 900px) {
+      .estimate-panel { position: sticky; top: 1.5rem; }
+    }
+    .estimate-panel h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .estimate-panel .estimate-amount {
+      font-family: "Playfair Display", serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .estimate-panel .estimate-detail {
+      font-size: 0.88rem;
+      color: rgba(247, 242, 232, 0.75);
+      margin-bottom: 0.75rem;
+    }
+    .estimate-panel .estimate-disclaimer {
+      font-size: 0.75rem;
+      color: rgba(247, 242, 232, 0.45);
+      line-height: 1.5;
+    }
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chip-group label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.85rem;
+      border: 1px solid rgba(247, 242, 232, 0.3);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin: 0;
+    }
+    .chip-group input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip-group label:has(input:checked) {
+      background: rgba(194, 161, 78, 0.2);
+      border-color: var(--gold);
+      color: var(--cream);
+    }
+    .chip-group label:has(input:focus-visible) {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    .booking-confirm {
+      display: none;
+      padding: 2rem;
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-card);
+      border: 1px solid rgba(194, 161, 78, 0.4);
+      max-width: 640px;
+    }
+    .booking-confirm.visible { display: block; }
+    .booking-confirm h3 {
+      font-family: "Playfair Display", serif;
+      color: var(--gold);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .booking-confirm p {
+      margin: 0 0 1rem;
+      color: rgba(247, 242, 232, 0.9);
+    }
+    .booking-confirm .confirm-secondary {
+      font-size: 0.9rem;
+      color: rgba(247, 242, 232, 0.55);
+    }
+    .booking-confirm .confirm-secondary a {
+      color: var(--gold);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .field-bartending-only { display: none; }
+    .field-bartending-only.visible { display: block; }
+
+    /* ===== SECTION 8: FOOTER ===== */
+    .footer {
+      padding: 3rem 0 2rem;
+      background: var(--forest);
+      color: rgba(247, 242, 232, 0.8);
+      border-top: 1px solid rgba(247, 242, 232, 0.1);
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .footer .wordmark { color: var(--cream); margin-bottom: 1rem; }
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .footer__links a {
+      color: rgba(247, 242, 232, 0.75);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .footer__links a:hover { color: var(--gold); }
+    .footer__concept {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(247, 242, 232, 0.1);
+      font-size: 0.8rem;
+      color: rgba(247, 242, 232, 0.45);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav" aria-label="Main">
+    <div class="container site-nav__inner">
+      <a href="#top" class="wordmark" aria-label="The Sip Room">
+        <span class="wordmark-circle" aria-hidden="true">THE<br>SIPROOM</span>
+        THE SIPROOM
+      </a>
+      <ul class="site-nav__links">
+        <li><a href="#experiences">Experiences</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+      </ul>
+      <div class="site-nav__actions">
+        <a href="#booking" class="btn btn-primary site-nav__cta">Reserve your date</a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-mobile">
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </div>
+    </div>
+    <div class="site-nav__mobile" id="nav-mobile">
+      <ul>
+        <li><a href="#experiences">Experiences</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+      </ul>
+      <a href="#booking" class="btn btn-primary">Reserve your date</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 1: HERO -->
+  <header class="hero" id="top">
+    <div class="hero__grid">
+      <div class="hero__panel">
+        <div class="container hero__content reveal">
+          <p class="eyebrow hero__eyebrow">Atlanta · Mobile bartending &amp; mixology</p>
+          <h1>Cocktail nights worth remembering.</h1>
+          <p class="hero__sub">Mocktails, too — at your home, office, Airbnb, or venue. We bring the bar, the vibes, and the know-how.</p>
+          <div class="hero__actions">
+            <a href="#booking" class="btn btn-primary">Reserve your date</a>
+            <a href="#pricing" class="btn btn-secondary">See packages</a>
+          </div>
+          <p class="hero__proof">Mixology classes from $65/guest · Groups of 6–18 · We come to you</p>
+
+          <form class="hero-quickbook" id="hero-quickbook" aria-label="Quick availability check">
+            <p class="hero-quickbook__label">Check availability</p>
+            <div class="hero-quickbook__fields">
+              <div>
+                <label for="hero-experience">Experience</label>
+                <select id="hero-experience" name="experience">
+                  <option value="mixology">Mixology class</option>
+                  <option value="bartending">Mobile bartending</option>
+                </select>
+              </div>
+              <div>
+                <label for="hero-guests">Guests</label>
+                <input type="number" id="hero-guests" name="guests" min="6" max="18" placeholder="8" inputmode="numeric">
+              </div>
+              <button type="submit" class="btn btn-primary">Check dates</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="hero__media">
+        <!-- SWAP: client photo — group class or event shot from @thesiproom_atl -->
+        <img src="assets/gallery-class-session.jpg" alt="Guests enjoying a mixology class with The Sip Room" loading="eager">
+        <img class="hero__inset" src="assets/gallery-cocktail-garnish.jpg" alt="" aria-hidden="true" loading="eager">
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECTION 2: WHAT WE BRING -->
+    <section class="pillars" id="about" aria-labelledby="pillars-heading">
+      <div class="container">
+        <div class="pillars__intro reveal">
+          <p class="eyebrow">What we bring</p>
+          <h2 id="pillars-heading">Made to sip. Mint to gather.</h2>
+          <p>We bring the bar, the vibes, and the know-how — cocktails and mocktails, wherever you are.</p>
+        </div>
+        <div class="pillars__grid">
+          <article class="pillar reveal">
+            <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M8 38h32M14 38V22l10-12 10 12v16M20 38v-8h8v8"/>
+            </svg>
+            <h3>Mobile bartending</h3>
+            <p>Full bar setup at your venue — weddings, parties, brand activations, and everything in between.</p>
+          </article>
+          <article class="pillar reveal">
+            <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="24" cy="20" r="10"/><path d="M14 38c0-6 4.5-10 10-10s10 4 10 10"/>
+              <path d="M24 10V6M18 12l-3-3M30 12l3-3"/>
+            </svg>
+            <h3>Mixology &amp; mocktail classes</h3>
+            <p>Hands-on workshops where you shake, stir, and sip — with or without the alcohol.</p>
+          </article>
+          <article class="pillar reveal">
+            <svg class="pillar__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M6 14h36v24a4 4 0 01-4 4H10a4 4 0 01-4-4V14z"/><path d="M6 14l6-8h24l6 8"/>
+              <path d="M18 26h12M18 32h8"/>
+            </svg>
+            <h3>Private events</h3>
+            <p>Curated experiences for date nights, team builds, and celebrations that deserve more than a link in bio.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: EXPERIENCES -->
+    <section class="experiences" id="experiences" aria-labelledby="exp-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Our experiences</p>
+          <h2 id="exp-heading">Pick your vibe</h2>
+          <p>Four ways to sip with us — from group workshops to intimate date nights. See pricing below, then hold your date.</p>
+        </div>
+        <div class="exp-grid">
+          <article class="exp-card reveal">
+            <div class="exp-card__img">
+              <!-- SWAP: client photo — Workshops highlight -->
+              <img src="assets/exp-workshops.jpg" alt="Mixology workshop class in session" loading="lazy">
+            </div>
+            <div class="exp-card__body">
+              <h3>Workshops</h3>
+              <p>Group mixology sessions with a theme — learn, taste, and leave with skills (and maybe a diploma).</p>
+              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+            </div>
+          </article>
+          <article class="exp-card reveal">
+            <div class="exp-card__img">
+              <!-- SWAP: client photo — Private Classes highlight -->
+              <img src="assets/exp-private-classes.jpg" alt="Private mocktail class with students" loading="lazy">
+            </div>
+            <div class="exp-card__body">
+              <h3>Private Classes</h3>
+              <p>Your crew, your pace — a hands-on class built around your group and your favorite flavors.</p>
+              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+            </div>
+          </article>
+          <article class="exp-card reveal">
+            <div class="exp-card__img">
+              <!-- SWAP: client photo — Amalfi Coast highlight -->
+              <img src="assets/exp-amalfi-coast.jpg" alt="Amalfi Coast themed charcuterie and mocktails" loading="lazy">
+            </div>
+            <div class="exp-card__body">
+              <h3>Amalfi Coast</h3>
+              <p>A taste of the coast — charcuterie, botanical mocktails, and a sun-soaked afternoon vibe.</p>
+              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+            </div>
+          </article>
+          <article class="exp-card reveal">
+            <div class="exp-card__img">
+              <!-- SWAP: client photo — LoveRoom highlight -->
+              <img src="assets/exp-loveroom.jpg" alt="Craft cocktail with fresh garnish for two" loading="lazy">
+            </div>
+            <div class="exp-card__body">
+              <h3>LoveRoom</h3>
+              <p>An intimate date-night cocktail experience for two — romantic, unhurried, and entirely yours.</p>
+              <a href="#pricing" class="link-inquire" data-package="bartending" data-event="bartending">Inquire &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works" aria-labelledby="steps-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 id="steps-heading">Simple as shake, stir, sip</h2>
+        </div>
+        <div class="steps">
+          <article class="step reveal">
+            <div class="step__num">1</div>
+            <h3>Tell us about your event</h3>
+            <p>Share the date, guest count, and the vibe you're going for — we'll handle the rest.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step__num">2</div>
+            <h3>We bring the full setup</h3>
+            <p>Bar tools, glassware, garnishes, and a curated menu — cocktails and mocktails included.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step__num">3</div>
+            <h3>You sip and host</h3>
+            <p>Relax and enjoy your guests. We pour, teach, and clean up so you can stay present.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: GALLERY -->
+    <section class="gallery" id="gallery" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">From our gatherings</p>
+          <h2 id="gallery-heading">A little proof</h2>
+        </div>
+        <div class="gallery__grid">
+          <div class="gallery__item reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/gallery-charcuterie-mocktails.jpg" alt="Charcuterie board with mocktails at Amalfi Coast workshop" loading="lazy">
+          </div>
+          <div class="gallery__item reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/gallery-class-session.jpg" alt="Class of 2026 mocktail workshop graduates" loading="lazy">
+          </div>
+          <div class="gallery__item reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/gallery-mocktail-class.jpg" alt="Students learning mixology at a mocktail class" loading="lazy">
+          </div>
+          <div class="gallery__item reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/gallery-cocktail-garnish.jpg" alt="Craft cocktail with fresh botanical garnish" loading="lazy">
+          </div>
+          <div class="gallery__item gallery__item--wide reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/gallery-spring-workshop.jpg" alt="Meadow mocktails workshop setup" loading="lazy">
+          </div>
+          <div class="gallery__item reveal">
+            <!-- SWAP: client photo -->
+            <img src="assets/hero-mobile-bar.jpg" alt="Mobile bar service at a private event" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: TESTIMONIALS -->
+    <section class="testimonials" id="testimonials" aria-labelledby="test-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Loved by hosts</p>
+          <h2 id="test-heading">What guests are saying</h2>
+        </div>
+        <div class="test-grid">
+          <article class="test-card reveal">
+            <span class="placeholder-tag">[replace with real review]</span>
+            <blockquote>"They made our girls' night feel like a real event — the mocktails were just as beautiful as the cocktails."</blockquote>
+            <cite>— Workshop guest, Atlanta</cite>
+          </article>
+          <article class="test-card reveal">
+            <span class="placeholder-tag">[replace with real review]</span>
+            <blockquote>"Professional, fun, and so easy to work with. Our corporate happy hour was the talk of the office for weeks."</blockquote>
+            <cite>— Corporate event host</cite>
+          </article>
+          <article class="test-card reveal">
+            <span class="placeholder-tag">[replace with real review]</span>
+            <blockquote>"The LoveRoom experience was perfect for our anniversary. Intimate, thoughtful, and absolutely delicious."</blockquote>
+            <cite>— Private event host</cite>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7A: TRANSPARENT PRICING -->
+    <section class="pricing" id="pricing" aria-labelledby="pricing-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Transparent pricing</p>
+          <h2 id="pricing-heading">Know what you're booking</h2>
+          <p>No surprises mid-form — pick your package, see your estimate, then reserve your date.</p>
+        </div>
+
+        <!-- CONFIRM these prices are current/public before publishing -->
+        <div class="package-grid">
+          <article class="package-card reveal" data-package="2-drink" data-event="mixology">
+            <h3>Mixology Class · 2 drinks</h3>
+            <p class="package-price">$65 <span>per person</span></p>
+            <p class="package-note">Groups of 6–18 (include yourself)</p>
+            <ul class="package-includes">
+              <li>Hands-on class with a pro mixologist</li>
+              <li>Two signature recipes — cocktail or mocktail</li>
+              <li>All tools, glassware, and ingredients included</li>
+              <li>Perfect for birthdays, team builds, and girls' nights</li>
+            </ul>
+            <button type="button" class="btn btn-outline btn-book-package">Book this</button>
+          </article>
+
+          <article class="package-card package-card--featured reveal" data-package="3-drink" data-event="mixology">
+            <span class="package-badge">Most popular</span>
+            <h3>Mixology Class · 3 drinks</h3>
+            <p class="package-price">$75 <span>per person</span></p>
+            <p class="package-note">Groups of 6–18 (include yourself)</p>
+            <ul class="package-includes">
+              <li>Everything in the 2-drink class, plus a third recipe</li>
+              <li>More time to shake, stir, and sip together</li>
+              <li>Cocktails, mocktails, or a mix — your call</li>
+              <li>Our most-booked experience for a reason</li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-book-package">Book this</button>
+          </article>
+
+          <article class="package-card reveal" data-package="bartending" data-event="bartending">
+            <h3>Mobile Bartending</h3>
+            <p class="package-price">Custom quote</p>
+            <p class="package-note">2-hour minimum · 5-hour max</p>
+            <ul class="package-includes">
+              <li>Full mobile bar setup at your venue</li>
+              <li>Professional bartender(s) for your event</li>
+              <li>Custom cocktail and mocktail menu</li>
+              <li>Weddings, corporate events, private parties</li>
+            </ul>
+            <button type="button" class="btn btn-outline btn-book-package">Book this</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7B: PROGRESSIVE BOOKING -->
+    <section class="booking" id="booking" aria-labelledby="booking-heading">
+      <div class="container">
+        <div class="reveal">
+          <p class="eyebrow">Reserve your date</p>
+          <h2 id="booking-heading">Hold your spot</h2>
+          <p class="booking__sub">Start with the basics — we'll collect location and menu details once your date is held.</p>
+        </div>
+
+        <p class="booking-progress reveal" id="booking-progress" aria-live="polite">Step 1 of 2 · The basics</p>
+
+        <div class="booking-layout reveal" id="booking-flow">
+          <form class="booking-form" id="booking-form" novalidate>
+
+            <!-- STEP 1 -->
+            <div class="form-step active" id="step-1" data-step="1">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Full name</label>
+                  <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your full name">
+                  <p class="error" id="error-name">Please enter your name.</p>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@email.com">
+                  <p class="error" id="error-email">Please enter a valid email.</p>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone <span style="opacity:0.6">(optional)</span></label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(404) 555-0123">
+                </div>
+                <div class="form-group">
+                  <label for="event-type">Event type</label>
+                  <select id="event-type" name="event-type" required>
+                    <option value="">Select one</option>
+                    <option value="mixology">Mixology Experience</option>
+                    <option value="bartending">Bartending Services</option>
+                  </select>
+                  <p class="error" id="error-event-type">Please select an event type.</p>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="date">Preferred date</label>
+                  <input type="date" id="date" name="date" required>
+                  <p class="helper">We book at least 2 weeks out.</p>
+                  <p class="error" id="error-date">Please choose a date at least 2 weeks from today.</p>
+                </div>
+                <div class="form-group">
+                  <label for="guests">Guest count</label>
+                  <input type="number" id="guests" name="guests" min="1" max="500" placeholder="How many guests?" required>
+                  <p class="helper" id="guests-helper">Mixology classes are for groups of 6–18.</p>
+                  <p class="error" id="error-guests">Mixology classes require 6–18 guests (include yourself).</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="package">Package</label>
+                <select id="package" name="package" required>
+                  <option value="2-drink">2-drink class ($65/person)</option>
+                  <option value="3-drink">3-drink class ($75/person)</option>
+                  <option value="bartending">Bartending (custom quote)</option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" id="btn-continue">Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="form-step" id="step-2" data-step="2">
+              <div class="form-group">
+                <label for="street">Address</label>
+                <input type="text" id="street" name="street" required placeholder="Street address" autocomplete="street-address">
+                <p class="helper">We come to you — home, office, Airbnb, or venue.</p>
+                <p class="error" id="error-street">Please enter your address.</p>
+              </div>
+              <div class="form-row form-row--3">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" name="city" required placeholder="City" autocomplete="address-level2">
+                  <p class="error" id="error-city">Required.</p>
+                </div>
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input type="text" id="state" name="state" required placeholder="GA" autocomplete="address-level1" maxlength="2">
+                  <p class="error" id="error-state">Required.</p>
+                </div>
+                <div class="form-group">
+                  <label for="zip">Zip</label>
+                  <input type="text" id="zip" name="zip" required placeholder="30301" autocomplete="postal-code" inputmode="numeric">
+                  <p class="error" id="error-zip">Required.</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="accessibility">Location setup / accessibility</label>
+                <textarea id="accessibility" name="accessibility" placeholder="e.g., stairs to a downstairs space, gravel path to the backyard"></textarea>
+              </div>
+              <div class="form-group field-bartending-only" id="duration-group">
+                <label for="duration">Duration needed</label>
+                <select id="duration" name="duration">
+                  <option value="">Select duration</option>
+                  <option value="2">2 hours</option>
+                  <option value="3">3 hours</option>
+                  <option value="4">4 hours</option>
+                  <option value="5">5 hours</option>
+                </select>
+                <p class="helper">2-hour minimum, 5-hour max for bartending.</p>
+                <p class="error" id="error-duration">Please select a duration.</p>
+              </div>
+              <div class="form-group">
+                <label for="drink-type">Drink type</label>
+                <select id="drink-type" name="drink-type" required>
+                  <option value="">Select one</option>
+                  <option value="cocktail">Cocktail</option>
+                  <option value="mocktail">Mocktail</option>
+                  <option value="mix">Mix</option>
+                </select>
+                <p class="error" id="error-drink-type">Please select a drink type.</p>
+              </div>
+              <div class="form-group">
+                <span class="label-text" style="display:block;font-size:0.85rem;margin-bottom:0.5rem;color:rgba(247,242,232,0.9);">Drink menu</span>
+                <div class="chip-group" role="group" aria-label="Drink menu selections">
+                  <label><input type="checkbox" name="menu" value="margarita"><span>Margarita</span></label>
+                  <label><input type="checkbox" name="menu" value="espresso-martini"><span>Espresso Martini</span></label>
+                  <label><input type="checkbox" name="menu" value="lemon-drop"><span>Lemon Drop</span></label>
+                  <label><input type="checkbox" name="menu" value="just-peachy"><span>Just Peachy</span></label>
+                  <label><input type="checkbox" name="menu" value="other"><span>Other</span></label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="occasion">What's the occasion? <span style="opacity:0.6">(optional)</span></label>
+                <input type="text" id="occasion" name="occasion" placeholder="Birthday, bachelorette, themed gathering…">
+              </div>
+              <div class="form-group">
+                <label for="allergies">Allergies / special requests <span style="opacity:0.6">(optional)</span></label>
+                <textarea id="allergies" name="allergies" placeholder="Any dietary restrictions or special requests?"></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" id="btn-back">Back</button>
+                <button type="submit" class="btn btn-primary" id="btn-reserve">Reserve your date</button>
+              </div>
+            </div>
+          </form>
+
+          <aside class="estimate-panel" id="estimate-panel" aria-live="polite">
+            <h3>Live estimate</h3>
+            <p class="estimate-amount" id="estimate-amount">—</p>
+            <p class="estimate-detail" id="estimate-detail">Select a package and guest count.</p>
+            <p class="estimate-disclaimer">Estimate — final quote confirmed after details.</p>
+          </aside>
+        </div>
+
+        <div class="booking-confirm reveal" id="booking-confirm" role="status" aria-live="polite">
+          <h3>Your date is held.</h3>
+          <p>A deposit secures it — we'll confirm the final quote and collect your deposit within 24 hours.</p>
+          <p class="confirm-secondary">Prefer to talk first? <a href="#" id="book-call-link" role="button">Book a quick call</a> (demo only).</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SECTION 8: FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <div class="wordmark">
+          <span class="wordmark-circle" aria-hidden="true">THE<br>SIPROOM</span>
+          THE SIPROOM
+        </div>
+        <p style="margin:0;font-size:0.95rem;">Atlanta, GA</p>
+        <p style="margin:0.35rem 0 0;font-size:0.95rem;"><a href="mailto:hello@thesiproom.com" style="color:rgba(247,242,232,0.75);">hello@thesiproom.com</a></p>
+      </div>
+      <nav class="footer__links" aria-label="Social links">
+        <a href="https://www.instagram.com/thesiproom_atl/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.tiktok.com/@thesiproom_atl" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://www.youtube.com/@thesiproom_atl" target="_blank" rel="noopener noreferrer">YouTube</a>
+      </nav>
+      <p class="footer__concept">Concept · Peakline Media</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var PRICES = { '2-drink': 65, '3-drink': 75 };
+      var PACKAGE_LABELS = {
+        '2-drink': '2-drink class ($65/person)',
+        '3-drink': '3-drink class ($75/person)',
+        'bartending': 'Bartending (custom quote)'
+      };
+
+      function minBookingDate() {
+        var d = new Date();
+        d.setDate(d.getDate() + 14);
+        return d.toISOString().split('T')[0];
+      }
+
+      function scrollToEl(el) {
+        if (!el) return;
+        el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      }
+
+      function setPackageSelection(pkg, eventType) {
+        var pkgSelect = document.getElementById('package');
+        var eventSelect = document.getElementById('event-type');
+        if (pkgSelect && pkg) pkgSelect.value = pkg;
+        if (eventSelect && eventType) eventSelect.value = eventType;
+        syncEventPackage();
+        updateEstimate();
+        toggleBartendingFields();
+      }
+
+      function syncEventPackage() {
+        var eventType = document.getElementById('event-type');
+        var pkgSelect = document.getElementById('package');
+        var pkg = pkgSelect.value;
+
+        if (pkg === 'bartending') {
+          eventType.value = 'bartending';
+        } else if (pkg === '2-drink' || pkg === '3-drink') {
+          eventType.value = 'mixology';
+        }
+
+        if (eventType.value === 'mixology' && pkgSelect.value === 'bartending') {
+          pkgSelect.value = '3-drink';
+        }
+        if (eventType.value === 'bartending') {
+          pkgSelect.value = 'bartending';
+        }
+        var guestsHelper = document.getElementById('guests-helper');
+        var guestsInput = document.getElementById('guests');
+        if (eventType.value === 'mixology') {
+          guestsHelper.textContent = 'Mixology classes are for groups of 6–18.';
+          guestsInput.min = 6;
+          guestsInput.max = 18;
+        } else {
+          guestsHelper.textContent = 'Include all guests who will be served.';
+          guestsInput.min = 1;
+          guestsInput.max = 500;
+        }
+      }
+
+      function updateEstimate() {
+        var pkg = document.getElementById('package').value;
+        var guests = parseInt(document.getElementById('guests').value, 10);
+        var amountEl = document.getElementById('estimate-amount');
+        var detailEl = document.getElementById('estimate-detail');
+
+        if (pkg === 'bartending') {
+          amountEl.textContent = 'Custom quote';
+          detailEl.textContent = "We'll confirm based on duration and setup.";
+          return;
+        }
+        if (!guests || guests < 1) {
+          amountEl.textContent = '—';
+          detailEl.textContent = 'Enter guest count to see your estimate.';
+          return;
+        }
+        var price = PRICES[pkg] || 0;
+        var total = guests * price;
+        var pkgLabel = pkg === '3-drink' ? '3-drink class' : '2-drink class';
+        amountEl.textContent = 'Estimated $' + total.toLocaleString();
+        detailEl.textContent = guests + ' guests × ' + pkgLabel + ' ($' + price + '/person)';
+      }
+
+      function toggleBartendingFields() {
+        var isBartending = document.getElementById('event-type').value === 'bartending'
+          || document.getElementById('package').value === 'bartending';
+        var durationGroup = document.getElementById('duration-group');
+        var durationSelect = document.getElementById('duration');
+        if (isBartending) {
+          durationGroup.classList.add('visible');
+          durationSelect.required = true;
+        } else {
+          durationGroup.classList.remove('visible');
+          durationSelect.required = false;
+          durationSelect.value = '';
+        }
+      }
+
+      function clearErrors(stepEl) {
+        stepEl.querySelectorAll('.form-group').forEach(function (g) {
+          g.classList.remove('has-error');
+        });
+      }
+
+      function showError(fieldId) {
+        var field = document.getElementById(fieldId);
+        if (!field) return false;
+        var group = field.closest('.form-group');
+        if (group) group.classList.add('has-error');
+        return false;
+      }
+
+      function validateStep1() {
+        clearErrors(document.getElementById('step-1'));
+        var valid = true;
+        var name = document.getElementById('name');
+        var email = document.getElementById('email');
+        var eventType = document.getElementById('event-type');
+        var date = document.getElementById('date');
+        var guests = document.getElementById('guests');
+        var minDate = minBookingDate();
+
+        if (!name.value.trim()) { showError('name'); valid = false; }
+        if (!email.value.trim() || !email.validity.valid) { showError('email'); valid = false; }
+        if (!eventType.value) { showError('event-type'); valid = false; }
+        if (!date.value || date.value < minDate) { showError('date'); valid = false; }
+
+        var guestCount = parseInt(guests.value, 10);
+        if (!guestCount || guestCount < 1) {
+          showError('guests'); valid = false;
+        } else if (eventType.value === 'mixology' && (guestCount < 6 || guestCount > 18)) {
+          showError('guests'); valid = false;
+        }
+
+        return valid;
+      }
+
+      function validateStep2() {
+        clearErrors(document.getElementById('step-2'));
+        var valid = true;
+        ['street', 'city', 'state', 'zip', 'drink-type'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el.value.trim()) { showError(id); valid = false; }
+        });
+        var isBartending = document.getElementById('event-type').value === 'bartending';
+        if (isBartending && !document.getElementById('duration').value) {
+          showError('duration'); valid = false;
+        }
+        return valid;
+      }
+
+      function goToStep(step) {
+        document.getElementById('step-1').classList.toggle('active', step === 1);
+        document.getElementById('step-2').classList.toggle('active', step === 2);
+        document.getElementById('booking-progress').textContent =
+          step === 1 ? 'Step 1 of 2 · The basics' : 'Step 2 of 2 · Event details';
+        if (step === 2) toggleBartendingFields();
+      }
+
+      // Scroll reveal
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        var reveals = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var delay = el.closest('.exp-grid, .gallery__grid, .test-grid, .steps, .pillars__grid, .package-grid')
+                ? Array.from(el.parentElement.children).indexOf(el) * 80
+                : 0;
+              setTimeout(function () { el.classList.add('visible'); }, delay);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { observer.observe(el); });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('visible');
+        });
+      }
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var id = link.getAttribute('href');
+          if (id === '#') return;
+          var target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            scrollToEl(target);
+          }
+        });
+      });
+
+      // Nav: scroll state + mobile menu
+      var siteNav = document.getElementById('site-nav');
+      var navToggle = document.getElementById('nav-toggle');
+      var navMobile = document.getElementById('nav-mobile');
+
+      function setNavScrolled() {
+        siteNav.classList.toggle('is-scrolled', window.scrollY > 48);
+      }
+      setNavScrolled();
+      window.addEventListener('scroll', setNavScrolled, { passive: true });
+
+      function closeMobileNav() {
+        siteNav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      navToggle.addEventListener('click', function () {
+        var open = siteNav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      navMobile.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMobileNav);
+      });
+
+      // Hero quick-book → pre-fill booking form
+      document.getElementById('hero-quickbook').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var experience = document.getElementById('hero-experience').value;
+        var heroGuests = document.getElementById('hero-guests').value;
+        var pkg = experience === 'bartending' ? 'bartending' : '3-drink';
+        setPackageSelection(pkg, experience);
+        if (heroGuests) {
+          document.getElementById('guests').value = heroGuests;
+        }
+        updateEstimate();
+        goToStep(1);
+        scrollToEl(document.getElementById('booking'));
+        document.getElementById('name').focus();
+        closeMobileNav();
+      });
+
+      document.getElementById('hero-experience').addEventListener('change', function () {
+        var guestsInput = document.getElementById('hero-guests');
+        if (this.value === 'mixology') {
+          guestsInput.min = 6;
+          guestsInput.max = 18;
+          guestsInput.placeholder = '8';
+        } else {
+          guestsInput.min = 1;
+          guestsInput.max = 500;
+          guestsInput.placeholder = '50';
+        }
+      });
+
+      // Date picker: 2-week minimum
+      var dateInput = document.getElementById('date');
+      dateInput.min = minBookingDate();
+
+      // Package card "Book this"
+      document.querySelectorAll('.btn-book-package').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var card = btn.closest('.package-card');
+          setPackageSelection(card.dataset.package, card.dataset.event);
+          scrollToEl(document.getElementById('booking'));
+          document.getElementById('name').focus();
+        });
+      });
+
+      // Experience inquire links
+      document.querySelectorAll('.link-inquire').forEach(function (link) {
+        link.addEventListener('click', function () {
+          setPackageSelection(link.dataset.package, link.dataset.event);
+        });
+      });
+
+      // Live estimate + sync
+      ['package', 'guests', 'event-type'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', function () {
+          syncEventPackage();
+          updateEstimate();
+          toggleBartendingFields();
+        });
+        document.getElementById(id).addEventListener('input', updateEstimate);
+      });
+
+      document.getElementById('btn-continue').addEventListener('click', function () {
+        if (validateStep1()) goToStep(2);
+      });
+
+      document.getElementById('btn-back').addEventListener('click', function () {
+        goToStep(1);
+      });
+
+      document.getElementById('booking-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validateStep2()) return;
+        document.getElementById('booking-flow').style.display = 'none';
+        document.getElementById('booking-progress').style.display = 'none';
+        var confirm = document.getElementById('booking-confirm');
+        confirm.classList.add('visible');
+        scrollToEl(confirm);
+      });
+
+      document.getElementById('book-call-link').addEventListener('click', function (e) {
+        e.preventDefault();
+      });
+
+      // Init
+      syncEventPackage();
+      updateEstimate();
+      toggleBartendingFields();
+    })();
+  </script>
+</body>
+</html>
