@@ -181,11 +181,32 @@
       gap: 1rem;
     }
     .site-nav .wordmark {
-      font-size: 0.72rem;
-      letter-spacing: 0.24em;
       color: var(--cream);
       text-decoration: none;
       flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .site-nav .wordmark-text {
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 0.92;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .site-nav .wordmark-the {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.54rem;
+      font-weight: 500;
+      margin-bottom: 0.16rem;
+      opacity: 0.92;
+    }
+    .site-nav .wordmark-name {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.24rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
     }
     .site-nav .wordmark-circle {
       width: 2.5rem;
@@ -505,7 +526,6 @@
       border: 0;
       border-radius: 50%;
       overflow: hidden;
-      background: #000;
       box-shadow: 0 0 0 1px rgba(247, 242, 232, 0.18);
       padding: 0;
     }
@@ -1091,7 +1111,10 @@
     <div class="container site-nav__inner">
       <a href="#top" class="wordmark" aria-label="The Sip Room">
         <span class="wordmark-circle wordmark-logo" aria-hidden="true"><img src="assets/logo-martini.png" alt=""></span>
-        THE SIPROOM
+        <span class="wordmark-text">
+          <span class="wordmark-the">The</span>
+          <span class="wordmark-name">Siproom</span>
+        </span>
       </a>
       <ul class="site-nav__links">
         <li><a href="#experiences">Experiences</a></li>
