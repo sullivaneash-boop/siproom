@@ -152,6 +152,10 @@
       right: 0;
       z-index: 100;
       padding: 0.85rem 0;
+      background: rgba(46, 58, 44, 0.76);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(247, 242, 232, 0.1);
       transition: background 0.25s ease, box-shadow 0.25s ease, padding 0.25s ease;
     }
     .site-nav.is-scrolled {
@@ -284,12 +288,41 @@
       min-height: 100vh;
       min-height: 100dvh;
       color: var(--cream);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(163, 177, 138, 0.14), transparent 40%),
+        radial-gradient(circle at 86% 82%, rgba(194, 161, 78, 0.09), transparent 38%),
+        linear-gradient(170deg, #2b3829 0%, #233020 100%);
+      overflow: clip;
+      border-bottom: 1px solid rgba(247, 242, 232, 0.16);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.2;
+      background-image: radial-gradient(rgba(247, 242, 232, 0.16) 0.55px, transparent 0.55px);
+      background-size: 6px 6px;
+      z-index: 0;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 14px;
+      pointer-events: none;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(247, 242, 232, 0), rgba(247, 242, 232, 0.1));
     }
     .hero__grid {
       display: grid;
       grid-template-columns: 1fr;
       min-height: 100vh;
       min-height: 100dvh;
+      position: relative;
+      z-index: 2;
     }
     @media (min-width: 820px) {
       .hero__grid {
@@ -297,7 +330,7 @@
       }
     }
     .hero__panel {
-      background: var(--forest);
+      background: transparent;
       display: flex;
       align-items: center;
       padding: 5.8rem 0 2.25rem;
