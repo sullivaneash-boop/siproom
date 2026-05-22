@@ -80,62 +80,109 @@
       border: 0;
     }
 
-    /* Buttons */
+    /* ===== BUTTONS ===== */
+    :root {
+      --btn-radius: 8px;
+      --btn-pad-y: 0.85rem;
+      --btn-pad-x: 1.6rem;
+      --btn-font-size: 0.95rem;
+      --btn-shadow-rest: 0 1px 2px rgba(46, 58, 44, 0.06);
+      --btn-shadow-hover: 0 6px 16px rgba(46, 58, 44, 0.12);
+      --btn-transition: 180ms cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.35rem;
-      padding: 0.85rem 1.5rem;
-      font-family: inherit;
-      font-size: 0.95rem;
+      gap: 0.5em;
+      font-family: "Jost", system-ui, sans-serif;
       font-weight: 500;
-      text-decoration: none;
-      border-radius: var(--radius-btn);
-      border: 2px solid transparent;
+      font-size: var(--btn-font-size);
+      letter-spacing: 0.01em;
+      line-height: 1;
+      text-transform: none;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      min-height: 48px;
+      border-radius: var(--btn-radius);
+      border: 1px solid transparent;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform var(--btn-transition), box-shadow var(--btn-transition), background-color var(--btn-transition), border-color var(--btn-transition), color var(--btn-transition), filter var(--btn-transition), text-decoration-color var(--btn-transition);
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: none;
     }
-    .btn:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
-    }
-    .btn-primary {
+    .btn--primary {
       background: var(--gold);
       color: var(--ink);
-      border-color: var(--gold);
+      box-shadow: var(--btn-shadow-rest);
     }
-    .btn-primary:hover {
+    .btn--primary:hover {
+      filter: brightness(0.96);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(194, 161, 78, 0.35);
+      box-shadow: var(--btn-shadow-hover);
     }
-    .btn-secondary {
+    .btn--primary:active {
+      transform: translateY(0);
+      box-shadow: var(--btn-shadow-rest);
+    }
+    .btn--secondary {
       background: transparent;
-      color: var(--card);
-      border-color: rgba(255,255,255,0.6);
-    }
-    .btn-secondary:hover {
-      border-color: var(--card);
-      transform: translateY(-2px);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--sage-deep);
+      color: var(--ink);
       border-color: var(--sage-deep);
     }
-    .btn-outline:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(107, 122, 90, 0.2);
+    .btn--secondary:hover {
+      background: rgba(163, 177, 138, 0.12);
+      border-color: var(--forest);
+      transform: translateY(-1px);
     }
-    .link-inquire {
-      font-weight: 500;
+    .btn--secondary:active {
+      transform: translateY(0);
+      background: rgba(163, 177, 138, 0.2);
+    }
+    .btn--text {
+      background: transparent;
+      border: none;
+      box-shadow: none;
       color: var(--sage-deep);
-      text-decoration: none;
-      border-bottom: 1px solid var(--sage);
-      padding-bottom: 2px;
-      transition: color 0.2s;
+      padding-left: 0;
+      padding-right: 0;
+      min-height: auto;
+      filter: none;
     }
-    .link-inquire:hover { color: var(--ink); }
+    .btn--text:hover {
+      color: var(--forest);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transform: none;
+      box-shadow: none;
+    }
+    .btn--text:active {
+      transform: none;
+      box-shadow: none;
+    }
+    .btn--lg {
+      padding: 1.05rem 2.1rem;
+      font-size: 1.05rem;
+    }
+    .btn--sm {
+      padding: 0.6rem 1.1rem;
+      font-size: 0.85rem;
+      min-height: 40px;
+    }
+    .btn--block { width: 100%; }
+    .btn:focus-visible {
+      outline: 2px solid var(--sage-deep);
+      outline-offset: 2px;
+    }
+    .btn:disabled,
+    .btn[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+      filter: none;
+      box-shadow: none;
+    }
 
     /* Scroll reveal */
     .reveal {
@@ -150,7 +197,12 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .btn:hover { transform: none; }
+      .btn,
+      .btn:hover,
+      .btn:active {
+        transform: none;
+        transition: background-color var(--btn-transition), border-color var(--btn-transition), color var(--btn-transition), filter var(--btn-transition), text-decoration-color var(--btn-transition);
+      }
     }
 
     /* ===== SITE NAV ===== */
@@ -238,8 +290,6 @@
     }
     .site-nav__cta {
       display: none;
-      padding: 0.65rem 1.15rem;
-      font-size: 0.88rem;
     }
     .nav-toggle {
       display: flex;
@@ -462,9 +512,6 @@
     }
     .hero-quickbook .btn {
       width: 100%;
-      white-space: nowrap;
-      padding: 0.7rem 1.1rem;
-      font-size: 0.88rem;
     }
     @media (min-width: 540px) {
       .hero-quickbook .btn { width: auto; }
@@ -535,13 +582,13 @@
       object-fit: cover;
       display: block;
     }
-    .hero .btn-secondary {
+    .hero .btn--secondary {
       color: var(--cream);
-      border-color: rgba(247, 242, 232, 0.55);
+      border-color: color-mix(in srgb, var(--cream) 55%, transparent);
     }
-    .hero .btn-secondary:hover {
+    .hero .btn--secondary:hover {
       border-color: var(--cream);
-      background: rgba(247, 242, 232, 0.08);
+      background: color-mix(in srgb, var(--cream) 8%, transparent);
     }
 
     /* ===== SECTION 2: PILLARS ===== */
@@ -970,14 +1017,8 @@
       gap: 0.75rem;
       margin-top: 0.5rem;
     }
-    .btn-ghost {
-      background: transparent;
-      color: rgba(247, 242, 232, 0.85);
-      border-color: rgba(247, 242, 232, 0.35);
-    }
-    .btn-ghost:hover {
-      border-color: var(--cream);
-      transform: translateY(-2px);
+    @media (min-width: 640px) {
+      .form-actions .btn--block { width: auto; }
     }
     .estimate-panel {
       background: rgba(255,255,255,0.08);
@@ -1060,11 +1101,8 @@
       font-size: 0.9rem;
       color: rgba(247, 242, 232, 0.55);
     }
-    .booking-confirm .confirm-secondary a {
-      color: var(--gold);
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    .booking-confirm .confirm-secondary .btn--text { color: var(--gold); }
+    .booking-confirm .confirm-secondary .btn--text:hover { color: var(--cream); }
     .field-bartending-only { display: none; }
     .field-bartending-only.visible { display: block; }
 
@@ -1122,7 +1160,7 @@
         <li><a href="#how-it-works">How it works</a></li>
       </ul>
       <div class="site-nav__actions">
-        <a href="#booking" class="btn btn-primary site-nav__cta">Reserve your date</a>
+        <a href="#booking" class="btn btn--primary btn--sm site-nav__cta">Reserve your date</a>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-mobile">
           <span class="nav-toggle__bar" aria-hidden="true"></span>
           <span class="visually-hidden">Menu</span>
@@ -1135,7 +1173,7 @@
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#how-it-works">How it works</a></li>
       </ul>
-      <a href="#booking" class="btn btn-primary">Reserve your date</a>
+      <a href="#booking" class="btn btn--primary btn--sm">Reserve your date</a>
     </div>
   </nav>
 
@@ -1148,8 +1186,8 @@
           <h1>Cocktail nights worth remembering.</h1>
           <p class="hero__sub">Mocktails, too — at your home, office, Airbnb, or venue. We bring the bar, the vibes, and the know-how.</p>
           <div class="hero__actions">
-            <a href="#booking" class="btn btn-primary">Reserve your date</a>
-            <a href="#pricing" class="btn btn-secondary">See packages</a>
+            <a href="#booking" class="btn btn--primary btn--lg">Book your experience</a>
+            <a href="#pricing" class="btn btn--secondary btn--lg">See what we do</a>
           </div>
           <p class="hero__proof">Mixology classes from $65/guest · Groups of 6–18 · We come to you</p>
 
@@ -1167,7 +1205,7 @@
                 <label for="hero-guests">Guests</label>
                 <input type="number" id="hero-guests" name="guests" min="6" max="18" placeholder="8" inputmode="numeric">
               </div>
-              <button type="submit" class="btn btn-primary">Check dates</button>
+              <button type="submit" class="btn btn--secondary btn--sm">Check dates</button>
             </div>
           </form>
         </div>
@@ -1235,7 +1273,7 @@
             <div class="exp-card__body">
               <h3>Workshops</h3>
               <p>Group mixology sessions with a theme — learn, taste, and leave with skills (and maybe a diploma).</p>
-              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+              <a href="#pricing" class="btn btn--text js-inquire" data-package="3-drink" data-event="mixology">Inquire</a>
             </div>
           </article>
           <article class="exp-card reveal">
@@ -1246,7 +1284,7 @@
             <div class="exp-card__body">
               <h3>Private Classes</h3>
               <p>Your crew, your pace — a hands-on class built around your group and your favorite flavors.</p>
-              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+              <a href="#pricing" class="btn btn--text js-inquire" data-package="3-drink" data-event="mixology">Inquire</a>
             </div>
           </article>
           <article class="exp-card reveal">
@@ -1257,7 +1295,7 @@
             <div class="exp-card__body">
               <h3>Amalfi Coast</h3>
               <p>A taste of the coast — charcuterie, botanical mocktails, and a sun-soaked afternoon vibe.</p>
-              <a href="#pricing" class="link-inquire" data-package="3-drink" data-event="mixology">Inquire &rarr;</a>
+              <a href="#pricing" class="btn btn--text js-inquire" data-package="3-drink" data-event="mixology">Inquire</a>
             </div>
           </article>
           <article class="exp-card reveal">
@@ -1268,7 +1306,7 @@
             <div class="exp-card__body">
               <h3>LoveRoom</h3>
               <p>An intimate date-night cocktail experience for two — romantic, unhurried, and entirely yours.</p>
-              <a href="#pricing" class="link-inquire" data-package="bartending" data-event="bartending">Inquire &rarr;</a>
+              <a href="#pricing" class="btn btn--text js-inquire" data-package="bartending" data-event="bartending">Inquire</a>
             </div>
           </article>
         </div>
@@ -1386,7 +1424,7 @@
               <li>All tools, glassware, and ingredients included</li>
               <li>Perfect for birthdays, team builds, and girls' nights</li>
             </ul>
-            <button type="button" class="btn btn-outline btn-book-package">Book this</button>
+            <button type="button" class="btn btn--secondary btn-book-package">Book this experience</button>
           </article>
 
           <article class="package-card package-card--featured reveal" data-package="3-drink" data-event="mixology">
@@ -1400,7 +1438,7 @@
               <li>Cocktails, mocktails, or a mix — your call</li>
               <li>Our most-booked experience for a reason</li>
             </ul>
-            <button type="button" class="btn btn-primary btn-book-package">Book this</button>
+            <button type="button" class="btn btn--primary btn-book-package">Book this experience</button>
           </article>
 
           <article class="package-card reveal" data-package="bartending" data-event="bartending">
@@ -1413,7 +1451,7 @@
               <li>Custom cocktail and mocktail menu</li>
               <li>Weddings, corporate events, private parties</li>
             </ul>
-            <button type="button" class="btn btn-outline btn-book-package">Book this</button>
+            <button type="button" class="btn btn--secondary btn-book-package">Book this experience</button>
           </article>
         </div>
       </div>
@@ -1485,7 +1523,7 @@
                 </select>
               </div>
               <div class="form-actions">
-                <button type="button" class="btn btn-primary" id="btn-continue">Continue</button>
+                <button type="button" class="btn btn--primary" id="btn-continue">Continue</button>
               </div>
             </div>
 
@@ -1559,8 +1597,8 @@
                 <textarea id="allergies" name="allergies" placeholder="Any dietary restrictions or special requests?"></textarea>
               </div>
               <div class="form-actions">
-                <button type="button" class="btn btn-ghost" id="btn-back">Back</button>
-                <button type="submit" class="btn btn-primary" id="btn-reserve">Reserve your date</button>
+                <button type="button" class="btn btn--secondary" id="btn-back">Back</button>
+                <button type="submit" class="btn btn--primary btn--block" id="btn-reserve">Reserve your date</button>
               </div>
             </div>
           </form>
@@ -1576,7 +1614,7 @@
         <div class="booking-confirm reveal" id="booking-confirm" role="status" aria-live="polite">
           <h3>Your date is held.</h3>
           <p>A deposit secures it — we'll confirm the final quote and collect your deposit within 24 hours.</p>
-          <p class="confirm-secondary">Prefer to talk first? <a href="#" id="book-call-link" role="button">Book a quick call</a> (demo only).</p>
+          <p class="confirm-secondary">Prefer to talk first? <a href="#" id="book-call-link" role="button" class="btn btn--text">Book a quick call</a> (demo only).</p>
         </div>
       </div>
     </section>
@@ -1868,7 +1906,7 @@
       });
 
       // Experience inquire links
-      document.querySelectorAll('.link-inquire').forEach(function (link) {
+      document.querySelectorAll('.js-inquire').forEach(function (link) {
         link.addEventListener('click', function () {
           setPackageSelection(link.dataset.package, link.dataset.event);
         });
